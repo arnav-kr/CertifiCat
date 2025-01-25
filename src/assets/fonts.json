@@ -1,0 +1,90 @@
+{
+  "Roboto": {
+    "data": "https://fonts.gstatic.com/s/roboto/v47/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf",
+    "fallback": true
+  },
+  "Open Sans": {
+    "data": "https://fonts.gstatic.com/s/opensans/v40/mem8YaGs126MiZpBA-U1UpcaXcl0Aw.ttf"
+  },
+  "Noto Sans JP": {
+    "data": "https://fonts.gstatic.com/s/notosansjp/v53/-F62fjtqLzI2JPCgQBnw7HFoxgIO2lZ9hg.ttf"
+  },
+  "Montserrat": {
+    "data": "https://fonts.gstatic.com/s/montserrat/v29/JTUSjIg1_i6t8kCHKm45xW5rygbi49c.ttf"
+  },
+  "Poppins": {
+    "data": "https://fonts.gstatic.com/s/poppins/v22/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+  },
+  "Inter": {
+    "data": "https://fonts.gstatic.com/s/inter/v18/UcCo3FwrK3iLTfvlaQc78lA2.ttf"
+  },
+  "Lato": {
+    "data": "https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHvxk6XweuBCY.ttf"
+  },
+  "Roboto Condensed": {
+    "data": "https://fonts.gstatic.com/s/robotocondensed/v27/ieVl2ZhZI2eCN5jzbjEETS9weq8-59WxDCs5cvI.ttf"
+  },
+  "Roboto Mono": {
+    "data": "https://fonts.gstatic.com/s/robotomono/v23/L0x5DF4xlVMF-BfR8bXMIghMoX6-XqKC.ttf"
+  },
+  "Oswald": {
+    "data": "https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg75GHjUHte5fKg.ttf"
+  },
+  "Noto Sans": {
+    "data": "https://fonts.gstatic.com/s/notosans/v38/o-0IIpQlx3QUlC5A4PNb4j5Ba_2c7A.ttf"
+  },
+  "Raleway": {
+    "data": "https://fonts.gstatic.com/s/raleway/v34/1Ptug8zYS_SKggPN-CoCTqluHfE.ttf"
+  },
+  "Nunito Sans": {
+    "data": "https://fonts.gstatic.com/s/nunitosans/v15/pe0qMImSLYBIv1o4X1M8cfe6Kdpickwp.ttf"
+  },
+  "Nunito": {
+    "data": "https://fonts.gstatic.com/s/nunito/v26/XRXV3I6Li01BKof4MuyAbsrVcA.ttf"
+  },
+  "Ubuntu": {
+    "data": "https://fonts.gstatic.com/s/ubuntu/v20/4iCs6KVjbNBYlgo6eAT3v02QFg.ttf"
+  },
+  "Rubik": {
+    "data": "https://fonts.gstatic.com/s/rubik/v28/iJWKBXyIfDnIV4nGp32S0H3f.ttf"
+  },
+  "Playfair Display": {
+    "data": "https://fonts.gstatic.com/s/playfairdisplay/v37/nuFiD-vYSZviVYUb_rj3ij__anPXPTvSgWE_-xU.ttf"
+  },
+  "Noto Sans KR": {
+    "data": "https://fonts.gstatic.com/s/notosanskr/v36/PbykFmXiEBPT4ITbgNA5Cgm21nTs4JMMuA.ttf"
+  },
+  "Merriweather": {
+    "data": "https://fonts.gstatic.com/s/merriweather/v30/u-440qyriQwlOrhSvowK_l5OeyxNV-bnrw.ttf"
+  },
+  "Roboto Slab": {
+    "data": "https://fonts.gstatic.com/s/robotoslab/v34/BngMUXZYTXPIvIBgJJSb6tfK7KSJ4ACD.ttf"
+  },
+  "PT Sans": {
+    "data": "https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79P0WOxOGMMDQ.ttf"
+  },
+  "Kanit": {
+    "data": "https://fonts.gstatic.com/s/kanit/v15/nKKZ-Go6G5tXcoaSEQGodLxA.ttf"
+  },
+  "Work Sans": {
+    "data": "https://fonts.gstatic.com/s/worksans/v19/QGYsz_wNahGAdqQ43RhPe6rol_lQ4A.ttf"
+  },
+  "DM Sans": {
+    "data": "https://fonts.gstatic.com/s/dmsans/v15/rP2Hp2ywxg089UriOZSCHBeHFl0.ttf"
+  },
+  "Lora": {
+    "data": "https://fonts.gstatic.com/s/lora/v35/0QIvMX1D_JOuAw3xItNPh_A.ttf"
+  },
+  "Mulish": {
+    "data": "https://fonts.gstatic.com/s/mulish/v13/1Ptvg83HX_SGhgqU2AAsQqB3BA.ttf"
+  },
+  "Noto Sans TC": {
+    "data": "https://fonts.gstatic.com/s/notosanstc/v36/-nF7OG829Oofr2wohFbTp9iFPysLA_ZJ1g.ttf"
+  },
+  "Quicksand": {
+    "data": "https://fonts.gstatic.com/s/quicksand/v31/6xKtdSZaM9iE8KbpRA_RLF4MQOPiPg.ttf"
+  },
+  "Fira Sans": {
+    "data": "https://fonts.gstatic.com/s/firasans/v17/va9E4kDNxMZdWfMOD5VfkILKSTbndQ.ttf"
+  }
+}
