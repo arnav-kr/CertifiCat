@@ -1,3 +1,4 @@
+"use client";
 import { useRef, useEffect, useCallback } from 'react';
 import { cloneDeep, Template, checkTemplate } from '@pdfme/common';
 import { Designer } from '@pdfme/ui';
@@ -41,14 +42,14 @@ function TemplateEditor(props: {
       schemas: [inputs],
     });
   }
-  const buildEditor = useCallback(async () => {
+  const buildEditor = useCallback(() => {
     try {
       if (!uiRef.current) return;
       editor.current = new Designer({
         domContainer: uiRef.current,
         template: template.current || getDefaultTemplate(),
         options: {
-          font: await getFontsData(),
+          font: getFontsData(),
           lang: 'en',
         },
         plugins: getPlugins(),
@@ -108,7 +109,7 @@ function TemplateEditor(props: {
     <>
       <div className="flex-1 w-full px-4 pb-1 flex justify-end">
         <button
-          className="px-4 py-2 h-fit text-white bg-green-700 rounded-md shadow-sm hover:bg-green-600 font-medium text-sm"
+          className="px-4 py-2 mt-1 h-fit text-white bg-green-700 rounded-md shadow-sm hover:bg-green-600 font-medium text-sm"
           onClick={onFinalize}
         >
           Finalize
