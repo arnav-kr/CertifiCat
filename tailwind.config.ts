@@ -8,9 +8,9 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      fontFamily: {
+        inter: "'Inter Variable', Arial, Helvetica, sans-serif",
+        "dm-serif-display": "'DM Serif Display', serif",
       },
     },
   },

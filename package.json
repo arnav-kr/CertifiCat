@@ -10,12 +10,17 @@
     "csv:migrate": "node ./src/scripts/csv-migrate.js"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource/dm-serif-display": "^5.1.1",
     "@pdfme/common": "^5.2.16",
     "@pdfme/generator": "^5.2.16",
     "@pdfme/schemas": "^5.2.16",
+    "@pdfme/ui": "^5.3.1",
+    "lucide-react": "^0.474.0",
     "next": "15.1.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-pdf": "^9.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
