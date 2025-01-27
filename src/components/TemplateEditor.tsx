@@ -1,8 +1,14 @@
 "use client";
-import { useRef, useEffect, useCallback } from 'react';
-import { cloneDeep, Template, checkTemplate } from '@pdfme/common';
-import { Designer } from '@pdfme/ui';
-import { getFontsData, getDefaultTemplate, readFile, getPlugins, defaultField } from '@/lib/helpers';
+import { useRef, useEffect, useCallback } from "react";
+import { cloneDeep, Template, checkTemplate } from "@pdfme/common";
+import { Designer } from "@pdfme/ui";
+import {
+  getFontsData,
+  getDefaultTemplate,
+  readFile,
+  getPlugins,
+  defaultField,
+} from "@/lib/helpers";
 
 function TemplateEditor(props: {
   template?: Template;
@@ -31,7 +37,7 @@ function TemplateEditor(props: {
   }
 
   if (basePdf) {
-    readFile(basePdf, 'dataURL').then((pdf) => {
+    readFile(basePdf, "dataURL").then((pdf) => {
       template.current = Object.assign(cloneDeep(template.current), {
         basePdf: pdf,
       });
@@ -50,18 +56,18 @@ function TemplateEditor(props: {
         template: template.current || getDefaultTemplate(),
         options: {
           font: getFontsData(),
-          lang: 'en',
+          lang: "en",
         },
         plugins: getPlugins(),
       });
     } catch (error) {
-      console.error('Error building editor:', error);
+      console.error("Error building editor:", error);
     }
   }, []);
 
   const onBasePDFChange = useCallback((basePDF: File) => {
     if (editor.current) {
-      readFile(basePDF, 'dataURL').then((pdf) => {
+      readFile(basePDF, "dataURL").then((pdf) => {
         if (editor.current) {
           editor.current.updateTemplate(
             Object.assign(cloneDeep(editor.current.getTemplate()), {
@@ -75,7 +81,7 @@ function TemplateEditor(props: {
 
   const onBaseTemplateChange = useCallback((Template: File) => {
     if (editor.current) {
-      readFile(Template, 'dataURL').then((json) => {
+      readFile(Template, "dataURL").then((json) => {
         if (editor.current) {
           editor.current.updateTemplate(
             Object.assign(cloneDeep(editor.current.getTemplate()), {
@@ -128,26 +134,22 @@ function TemplateEditor(props: {
     }
   }, [props.basePdf, onBasePDFChange]);
 
-  
-
   return (
     <>
-      <div className="flex-1 w-full px-4 pb-1 flex justify-end">
+      <div className="flex-1 gap-2 w-full px-0.5 py-2 flex justify-end">
         <button
-          className="px-4 py-2 mt-1 h-fit text-white bg-indigo-500  rounded-md shadow-sm hover:bg-indigo-700  font-medium text-sm"
+          className="flex items-center justify-center gap-2 px-4 py-2 w-fit rounded-md shadow-sm bg-indigo-700 hover:shadow-md transition duration-150 ease active:scale-[99%] text-white text-sm font-medium"
           onClick={onFinalize}
         >
           Finalize
         </button>
         <button
-          className="px-4 py-2 mt-1 h-fit text-white bg-indigo-500  rounded-md shadow-sm hover:bg-indigo-700  font-medium text-sm"
+          className="flex items-center justify-center gap-2 px-4 py-2 w-fit rounded-md shadow-sm bg-indigo-700 hover:shadow-md transition duration-150 ease active:scale-[99%] text-white text-sm font-medium"
           onClick={onEdit}
         >
           Edit
         </button>
-        <div className="App">
-     
-    </div>
+        <div className="App"></div>
       </div>
       <div ref={uiRef} className="flex-1 w-full" />
     </>

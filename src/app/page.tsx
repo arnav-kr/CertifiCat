@@ -1,13 +1,17 @@
 "use client";
+import Notice from "@/components/Notice";
+import { getPrograms } from "@/lib/firebase/firestore";
+import { formatProgramName } from "@/lib/helpers";
 import {
   ArrowDown,
   ArrowRight,
   ChevronDown,
-  Info,
   LoaderCircleIcon,
 } from "lucide-react";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
+// client side query params nextjs 15
+import { useSearchParams } from "next/navigation";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -18,7 +22,48 @@ export default function Home() {
   const [pdf, setPdf] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [programs, setPrograms] = useState<string[]>([]);
   const userDetails = useRef<{ user_id: string; program: string } | null>(null);
+  const searchParams = useSearchParams();
+  const userInputRef = useRef<HTMLInputElement>(null);
+  const programSelectRef = useRef<HTMLSelectElement>(null);
+
+  const id = searchParams.get("id");
+  const program = searchParams.get("program");
+
+  const fetchCertificate = async (program: string, id: string) => {
+    const res = await fetch(`/certificates/${program}/${id}`);
+    setLoading(false);
+    if (res.ok) {
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      setPdf(url);
+    } else {
+      const message = await res.text();
+      setError(message);
+      console.error("Error fetching certificate");
+    }
+  };
+  useEffect(() => {
+    if (program && id) {
+      userDetails.current = {
+        user_id: id as string,
+        program: program as string,
+      };
+      if (userInputRef.current && programSelectRef.current) {
+        userInputRef.current.value = id;
+        programSelectRef.current.value = program;
+      }
+      fetchCertificate(program as string, id as string);
+    }
+  }, [program, id]);
+
+  useEffect(() => {
+    async function fetchPrograms() {
+      setPrograms(await getPrograms());
+    }
+    fetchPrograms();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,19 +78,8 @@ export default function Home() {
       program: program as string,
     };
 
-    const res = await fetch(`/certificates/${program}/${user_id}`);
-    setLoading(false);
-    if (res.ok) {
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      setPdf(url);
-    } else {
-      const message = await res.text();
-      setError(message);
-      console.error("Error fetching certificate");
-    }
+    fetchCertificate(program as string, user_id as string);
   };
-
 
   return (
     <>
@@ -53,13 +87,11 @@ export default function Home() {
         <h2 className="text-4xl text-center font-semibold text-neutral-800 dark:text-neutral-200 mb-8 font-dm-serif-display">
           Claim Your Certificate
         </h2>
-        <form className="space-y-4 p-6 md:p-8 max-w-sm w-full" onSubmit={handleSubmit}>
-          {error && (
-            <div className="flex border animate-in fade-in border-red-500 dark:border-red-500 bg-red-50 dark:bg-red-800 text-red-600 dark:text-red-300 p-3 my-4 rounded-md">
-              <Info className="size-5" />
-              <span className="ml-2 text-sm">{error}</span>
-            </div>
-          )}
+        <form
+          className="space-y-4 p-6 md:p-8 max-w-sm w-full"
+          onSubmit={handleSubmit}
+        >
+          {error && <Notice type="error" message={error} />}
           <div className="flex flex-col">
             <label
               htmlFor="user_id"
@@ -75,6 +107,7 @@ export default function Home() {
               placeholder="U1A2B3C4D5"
               minLength={8}
               required
+              ref={userInputRef}
               onKeyDown={() => {
                 setError(null);
               }}
@@ -93,29 +126,21 @@ export default function Home() {
                 required
                 name="program"
                 id="program"
+                ref={programSelectRef}
                 onChange={() => {
                   setError(null);
                 }}
                 className="w-full appearance-none border shadow-sm font-medium bg-transparent text-neutral-950 dark:text-neutral-50 border-neutral-300 dark:border-neutral-800 rounded-md px-4 py-3 text-sm"
               >
-                <option
-                  value="infinity"
-                  className="bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50"
-                >
-                  Infinity
-                </option>
-                <option
-                  value="hackathons"
-                  className="bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50"
-                >
-                  Hackathons
-                </option>
-                <option
-                  value="3"
-                  className="bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50"
-                >
-                  Program 3
-                </option>
+                {programs.map((program) => (
+                  <option
+                    key={program}
+                    value={program}
+                    className="bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50"
+                  >
+                    {formatProgramName(program)}
+                  </option>
+                ))}
               </select>
               <ChevronDown className="size-5 stroke-neutral-700 dark:stroke-neutral-300 absolute top-3.5 right-3.5" />
             </div>
@@ -140,7 +165,12 @@ export default function Home() {
               file={pdf}
               className="w-full border-none rounded-lg shadow-sm overflow-hidden"
             >
-              <Page pageNumber={1} renderTextLayer={false} renderAnnotationLayer={false} className="w-full h-auto"/>
+              <Page
+                pageNumber={1}
+                renderTextLayer={false}
+                renderAnnotationLayer={false}
+                className="w-full h-auto"
+              />
             </Document>
             <a
               href={pdf}

@@ -1,5 +1,6 @@
-import { Template, Font, getDefaultFont } from '@pdfme/common';
+import { Template, Font, getDefaultFont, Schema } from '@pdfme/common';
 import { text } from '@pdfme/schemas';
+import { DocumentData } from 'firebase/firestore';
 
 export const getFontsData = (): Font => {
   return {
@@ -136,4 +137,42 @@ export const getDefaultTemplate = () =>
     padding: [20, 10, 20, 10]
   },
   pdfmeVersion: "52.16"
-} as Template);
+} as Template)
+
+export const convertFirestoreArray = (data: DocumentData) => {
+  const result = [];
+  for (const key in data) {
+    result.push(data[key]);
+  }
+  return result;
+};
+
+export async function toDataUrl(blob: Blob) {
+  const buffer = Buffer.from(await blob.arrayBuffer());
+  return "data:" + blob.type + ";base64," + buffer.toString("base64");
+}
+
+export async function constructTemplate(basePdf: Blob, schemas: Schema[]) {
+  return {
+    basePdf: await toDataUrl(basePdf),
+    schemas: [schemas],
+    pdfmeVersion: "5.2.16",
+  };
+}
+
+// function to get the program name into the correct format
+// only a-z and 0-9 are allowed, rest all are converted to _ and repeated _ are reduced to single _
+// and it can't be program_list nor end with _schemas
+export function sanatizeProgramName(name: string) {
+  const res = name.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/_schemas$/, 'schemas');
+  if (res === 'programs_list') {
+    throw new Error('Invalid program name');
+  }
+  return res;
+}
+
+// function to convert program names for display
+// all _ are converted to space and first letter of each word is capitalized
+export function formatProgramName(name: string) {
+  return name.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+}
