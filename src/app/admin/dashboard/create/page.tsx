@@ -58,7 +58,10 @@ export default function Create() {
           // console.log("CSV data:", data);
           setParsedValues(data as { [key: string]: unknown }[]);
           const fields = Object.keys(data[0]).map((k) => {
-            const sanatized = sanatizeProgramName(k);
+            let sanatized = sanatizeProgramName(k);
+            if(k === "email") {
+              sanatized = sanatized.trim();
+            }
             return {
               value: sanatized,
               label: sanatizeProgramName(sanatized),
