@@ -101,7 +101,7 @@ export async function getIdFromEmail(email: string, program: string) {
     console.log(err);
     return false;
   }
-  const q = query(collection(db, program), where("email", "==", email.toLowerCase()));
+  const q = query(collection(db, program), where("email", "==", email.trim().toLowerCase()));
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
     return false;
